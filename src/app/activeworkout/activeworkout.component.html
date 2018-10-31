@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 border border-light rounded">
+      <h3 *ngIf="workoutPageHeader;else end">
+        End Workout
+      </h3>
+      <ng-template #end>
+        <h3>Start Workout</h3>
+      </ng-template>
+
+
+      <div class="col-md-12">
+        <form [formGroup]="activeWorkoutForm" (ngSubmit)="startOrStopWorkitem()">
+          <div class="form-group row col-md-12">
+            <label for="inputTitle" class="col-md-4 col-form-label">Title:</label>
+            <input formControlName="workout_title" class="form-control col-md-8" disabled="true">
+          </div>
+          <div class="form-group row col-md-12">
+            <label for="inputTitle" class="col-md-4 col-form-label">Note:</label>
+            <input formControlName="workout_note" class="form-control col-md-8" disabled="true">
+          </div>
+          <div class="form-group row col-md-12">
+            <label for="inputTitle" class="col-md-4 col-form-label">{{workoutPageAction}} Date:</label>
+            <input *ngIf="workoutPageAction=='Start'" formControlName="start_date" class="form-control col-md-8">
+            <input *ngIf="workoutPageAction=='End'" formControlName="end_date" class="form-control col-md-8">
+          </div>
+          <div class="form-group row col-md-12">
+            <label for="inputTitle" class="col-md-4 col-form-label">{{workoutPageAction}} Time:</label>
+            <input *ngIf="workoutPageAction=='Start'" formControlName="start_time" class="form-control col-md-8">
+            <input *ngIf="workoutPageAction=='End'" formControlName="end_time" class="form-control col-md-8">
+          </div>
+          <div class="form-group row col-md-12">
+            <button class="col-md-4 col-form-label offset-6 btn btn-danger" *ngIf="workoutPageAction==='End'">End</button>
+            <button class="col-md-4 col-form-label offset-6 btn btn-success" *ngIf="workoutPageAction!=='End'">Start</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

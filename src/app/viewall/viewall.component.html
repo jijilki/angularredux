@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+
+
+
+        <div class="col-md-6">
+                <div class="form-group row col-md-12">
+                <input type="text" class="form-control" id="srchWorkoutTxt" name="srchWorkoutTxt" [(ngModel)]="srchWorkoutTxt" placeholder="Search">
+                </div>
+                <div class="form-group row col-md-12">
+            <div class="list-group col-md-12">
+                <div class="list-group-item" *ngFor="let workout of workouts | workoutPipe:srchWorkoutTxt">
+                    {{ workout.workout_title}}
+                    <div class="list-group-item">
+                        <input type="button" class="btn btn-secondary btn-number" value="Edit" (click)="edit(workout)">
+                        <input type="button" value="Delete" class="btn btn-danger btn-number" (click)="delete(workout)">
+                        <input *ngIf="viewWorkoutPageAction!=='End'" class="btn btn-success btn-number" type="button" value="Start" (click)="start(workout)">
+                        <input *ngIf="viewWorkoutPageAction !=='Start'" class="btn btn-danger btn-number" type="button" value="End" (click)="end(workout)" disabled>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- *ngFor="let workout of workouts" -->
+  

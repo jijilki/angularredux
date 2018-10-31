@@ -1,0 +1,30 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="header" style="text-align:center">
+  <h1>
+    {{app_name}}
+  </h1>
+</div>
+<div class="body">
+  
+  
+   <nav id="navbar-worksmenu" class="navbar navbar-light bg-light">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <!--<a class="nav-link" href="#viewall">View All</a>-->
+                <a routerLink='/viewall' class="w3-bar-item w3-button">View All</a>
+            </li>
+             <li class="nav-item">
+               <a routerLink='/create' class="w3-bar-item w3-button">Create</a>
+            </li>
+              <li class="nav-item">
+                <a routerLink='/category' class="w3-bar-item w3-button">Category</a>
+            </li>
+             <li class="nav-item">
+                <a routerLink='/track' class="w3-bar-item w3-button">Track</a>
+            </li>
+
+        </ul>
+    </nav>
+
+<router-outlet></router-outlet>
+</div>

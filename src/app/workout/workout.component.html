@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row ">
+    <div class="border border-light ">
+      <div class="col-md-8">
+        <h3 *ngIf="workoutPageAction;else create">
+          Edit Workout
+        </h3>
+        <ng-template #create>
+          <h3>Add Workout </h3>
+        </ng-template>
+      </div>
+      <div class="col-md-12">
+        <form [formGroup]="workoutForm" (ngSubmit)="onWorkoutFormSubmit()">
+          <div class="form-group row col-md-12">
+            <label for="inputTitle" class="col-md-4 col-form-label">Title:</label>
+            <input formControlName="workout_title" class="form-control col-md-8">
+          </div>
+
+          <div class="form-group row col-md-12">
+            <label for="inputNote" class="col-md-4 col-md-offset-2 col-form-label">Note:</label>
+            <textarea formControlName="workout_note" class="form-control col-md-8" rows="3"></textarea>
+          </div>
+
+          <div class="form-group row col-md-12">
+            <label for="inputTitle" class="col-md-4 col-form-label">Calories Burn Per Minute:</label>
+            <div class="col-md-8">
+              <div class="input-group">
+                <input formControlName="cbpm" class="form-control" name="cbpm1">
+                <span class="input-group-btn">
+              <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="cbpm1" (click)="plus()">
+                <i class="fa fa-plus"></i>
+              </button>
+            </span>
+                <span class="input-group-btn">
+              <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="cbpm1" (click)="minus()">
+                <i class="fa fa-minus"></i>
+              </button>
+            </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row col-md-12">
+            <label for="inputTitle" class="col-md-4 col-md-offset-2 col-form-label"> Category:</label>
+            <div class="col-sm-8">
+              <div formGroupName="category">
+                <select formControlName="_catId" class="form-control">
+              <option *ngFor="let category of categories" [value]="category._catId">{{category.categoryName}}</option>
+              
+            </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row col-md-12">
+          <button *ngIf="workoutPageAction==='Update'" class="col-md-4 col-md-offset-2 btn btn-success btn-lg">UPDATE</button>
+          <button *ngIf="workoutPageAction!=='Update'" class="col-md-4 col-md-offset-2 btn btn-success btn-lg">CREATE</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
