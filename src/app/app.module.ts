@@ -49,10 +49,10 @@ import { WorkoutPipe } from './pipes/workout.pipe';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    FusionChartsModule.forRoot(FusionCharts, Charts, FintTheme)
+    NgReduxModule,
+    FusionChartsModule.forRoot(FusionCharts, Charts, FintTheme),
   ],
   providers: [
-    //NgRedux,
     WorkoutService,
     CategoryService,
     ActiveworkoutService
@@ -60,8 +60,10 @@ import { WorkoutPipe } from './pipes/workout.pipe';
   bootstrap: [AppComponent]
   
 })
+
 export class AppModule { 
- constructor (ngRedux: NgRedux<IAppState>) {
-        ngRedux.configureStore(rootReducer, INITIAL_STATE);
+  constructor (ngRedux: NgRedux<IAppState>) {
+       ngRedux.configureStore(rootReducer, INITIAL_STATE);
     }
+
 }

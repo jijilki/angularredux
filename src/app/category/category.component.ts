@@ -5,9 +5,9 @@ import { category } from '../category';
 import { CategoryService } from '../services/category.service';
 
 //State info -Redux
-// import { NgRedux, select } from '@angular-redux/store';
-// import {IAppState} from '../../store';
-// import {ADD_CAT} from '../action';
+ import { NgRedux, select } from '@angular-redux/store';
+ import {IAppState} from '../../store';
+ import {ADD_CAT} from '../action';
 
 @Component({
   selector: 'app-category',
@@ -26,10 +26,10 @@ export class CategoryComponent implements OnInit {
   srchWorkoutTxt: String;
   editAction: String;
   editedCat: number;
- // @select() searchCategory;
+ @select() searchCategory;
   constructor(
     private categoryService: CategoryService,
-    //private ngRedux: NgRedux<IAppState>
+    private ngRedux: NgRedux<IAppState>
     )
     {}
 
@@ -43,9 +43,8 @@ export class CategoryComponent implements OnInit {
   }
 
   addnewcategory() {
-    console.log(+"Adding");
-   // this.ngRedux.dispatch({type: ADD_CAT});
-
+    console.log("Adding");
+  
     if (!this.newCategoryName) {
       this.error = "Category Name is Mandatory";
       return;
@@ -53,9 +52,11 @@ export class CategoryComponent implements OnInit {
     this.error = null;
     this.category = new category();
     this.category.categoryName = this.newCategoryName;
+      // set  a new category object to dispatch...
+    this.ngRedux.dispatch({type: ADD_CAT, value:this.category});
+
     console.log("this.category   " + this.category.categoryName);
-    this.categoryService.saveCategory(this.category).subscribe(data => {
-     
+    this.categoryService.saveCategory(this.category).subscribe(data => {  
     },
     error => {
 

@@ -1,5 +1,7 @@
 export class category {
-    constructor() {}
+	catName:String
+    constructor() {
+	}
 	_catId:number;    
 	categoryName:String;
 }

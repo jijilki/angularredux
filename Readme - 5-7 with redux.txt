@@ -28,3 +28,9 @@ and wrapped all map inside Pipe
 
 .map 
 .pipe(map)
+
+
+
+Issue with dependency injection. 
+Added below into the imports of app.module.ts
+NgReduxModule,
