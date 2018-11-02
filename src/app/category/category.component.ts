@@ -7,7 +7,7 @@ import { CategoryService } from '../services/category.service';
 //State info -Redux
  import { NgRedux, select } from '@angular-redux/store';
  import {IAppState} from '../../store';
- import {ADD_CAT} from '../action';
+ import {ADD_CAT,REM_CAT,UPD_CAT} from '../action';
 
 @Component({
   selector: 'app-category',
@@ -26,7 +26,7 @@ export class CategoryComponent implements OnInit {
   srchWorkoutTxt: String;
   editAction: String;
   editedCat: number;
- @select() searchCategory;
+ @select() categoryArr;
   constructor(
     private categoryService: CategoryService,
     private ngRedux: NgRedux<IAppState>
@@ -35,7 +35,7 @@ export class CategoryComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getCategory();
+  //  this.getCategory();
   }
 
   getCategory() {
@@ -52,10 +52,10 @@ export class CategoryComponent implements OnInit {
     this.error = null;
     this.category = new category();
     this.category.categoryName = this.newCategoryName;
-      // set  a new category object to dispatch...
     this.ngRedux.dispatch({type: ADD_CAT, value:this.category});
-
     console.log("this.category   " + this.category.categoryName);
+    this.newCategoryName="";
+    /** 
     this.categoryService.saveCategory(this.category).subscribe(data => {  
     },
     error => {
@@ -65,16 +65,17 @@ export class CategoryComponent implements OnInit {
       this.getCategory();
       this.newCategoryName="";
     }
-  );
+  );*/
 
   }
 
   delete(category: category) {
     console.log("Inside delete category");
     this.category = category;
-    this.categoryService.deleteCategory(this.category).subscribe(data => {
-      this.getCategory();
-    });
+    this.ngRedux.dispatch({type: REM_CAT, value:this.category});
+    /** this.categoryService.deleteCategory(this.category).subscribe(data => {
+       this.getCategory();
+     });*/
 
   }
 
@@ -82,8 +83,8 @@ export class CategoryComponent implements OnInit {
     console.log("Inside delete category");
     if (this.editedCat == category._catId) {
       this.category = category;
-
-
+       this.ngRedux.dispatch({type: UPD_CAT, value:this.category});
+       /** 
       this.categoryService.updateCategory(this.category).subscribe(
         data => {
             // this.activeworkouts = data;
@@ -97,7 +98,7 @@ export class CategoryComponent implements OnInit {
           this.editedCat=0;
             //this.getWeeklySplitWorkoutTime();
         }
-    );
+    );*/
       // this.categoryService.updateCategory(this.category).subscribe(
       //   data => {
 

@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 //import 'rxjs/add/operator/switchMap';
-
 import { workout } from '../workout';
 import { category } from '..//category';
 import { WorkoutService } from '../services/workout.service';
 import { CategoryService } from '../services/category.service';
 
+//State info -Redux
+ import { NgRedux, select } from '@angular-redux/store';
+ import {IAppState} from '../../store';
+ import {ADD_CAT} from '../action';
 
 @Component({
   selector: 'app-workout',
@@ -36,6 +39,7 @@ export class WorkoutComponent implements OnInit {
 
 
   });
+  @select()categoryArr;
 
 
   constructor(
@@ -43,7 +47,8 @@ export class WorkoutComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private workoutService: WorkoutService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private ngRedux: NgRedux<IAppState>
   ) {
   }
 
@@ -113,7 +118,9 @@ export class WorkoutComponent implements OnInit {
   };
 
   getCategories() {
-    this.categoryService.getCategoryList().subscribe(data => { console.log("getting category"); this.categories = data });
+    this.categories = this.categoryArr;
+    console.log(this.categoryArr);
+   // this.categoryService.getCategoryList().subscribe(data => { console.log("getting category"); this.categories = data });
     //this.workoutService.getAllWorkouts().subscribe(data => this.workouts = data );
   };
 
