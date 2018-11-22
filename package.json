@@ -21,9 +21,11 @@
     "@angular/platform-browser": "^7.0.0",
     "@angular/platform-browser-dynamic": "^7.0.0",
     "@angular/router": "~7.0.0",
+    "@ngrx/store": "^6.1.2",
     "angular4-fusioncharts": "^1.0.0",
     "core-js": "^2.5.4",
     "fusioncharts": "^3.13.2-sr.1",
+    "ng-redux": "^4.1.0",
     "redux": "^4.0.1",
     "rxjs": "^6.3.3",
     "zone.js": "^0.8.26"

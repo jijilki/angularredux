@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 //Activation of store.
-import {NgRedux , NgReduxModule} from '@angular-redux/store';
-import {IAppState,INITIAL_STATE,rootReducer} from '../store';
+import { NgRedux, NgReduxModule } from '@angular-redux/store';
+import {INITIAL_STATE,IAppState,rootReducer} from '../store';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -58,12 +58,12 @@ import { WorkoutPipe } from './pipes/workout.pipe';
     ActiveworkoutService
   ],
   bootstrap: [AppComponent]
-  
+
 })
 
-export class AppModule { 
-  constructor (ngRedux: NgRedux<IAppState>) {
-       ngRedux.configureStore(rootReducer, INITIAL_STATE);
+export class AppModule {
+   constructor(ngRedux: NgRedux<IAppState>) {
+      ngRedux.configureStore(rootReducer, INITIAL_STATE);
     }
 
 }

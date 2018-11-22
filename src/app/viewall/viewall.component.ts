@@ -3,6 +3,11 @@ import { workout } from '../workout';
 
 import { WorkoutService } from '../services/workout.service'
 import { Router } from '@angular/router';
+
+import {GET_ALL_WO} from '../action';
+import {NgRedux,select} from '@angular-redux/store'
+ import {IAppState} from '../../store';
+
 //mock imports
 
 //import { WORKOUTS } from '../mock/workoutmocks';
@@ -18,8 +23,9 @@ export class ViewallComponent implements OnInit {
   workouts : workout[];
   workout:workout;
   viewWorkoutPageAction:String;
+  @select()workoutArr;
 
-  constructor(private workoutService:WorkoutService ,private router:Router) { }
+  constructor(private workoutService:WorkoutService ,private router:Router,private ngRedux:NgRedux<IAppState>) { }
 
   ngOnInit() {
     //on init get all the workouts.
@@ -27,7 +33,8 @@ export class ViewallComponent implements OnInit {
     }
 
   getAllWorkouts():void{
-    this.workoutService.getAllWorkouts().subscribe(data => this.workouts = data );
+    this.workouts = this.workoutArr;
+    //this.workoutService.getAllWorkouts().subscribe(data => this.workouts = data );
   }
 
   edit(workout:workout): void { 

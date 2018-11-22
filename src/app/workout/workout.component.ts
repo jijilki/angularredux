@@ -10,7 +10,8 @@ import { CategoryService } from '../services/category.service';
 //State info -Redux
  import { NgRedux, select } from '@angular-redux/store';
  import {IAppState} from '../../store';
- import {ADD_CAT} from '../action';
+ import {ADD_CAT,GET_ONE_WO,CRE_WO,DEL_WO} from '../action';
+
 
 @Component({
   selector: 'app-workout',
@@ -39,8 +40,9 @@ export class WorkoutComponent implements OnInit {
 
 
   });
-  @select()categoryArr;
-
+  @select() categoryArr;
+  @select() workoutArr ;
+  @select() editWorkout
 
   constructor(
     //This introduced for the snapshot error.
@@ -76,12 +78,15 @@ export class WorkoutComponent implements OnInit {
 
 
   getWorkout(workoutId: number) {
+    
     //alert("Inside get Workout");
     //this.workoutService.getAllWorkouts().subscribe(data =>{
-    this.workoutService.getAllWorkouts().subscribe(data => {
-    this.selWos = data;
-      this.selectedworkouts = this.selWos.filter(selectedwo => selectedwo.workout_id == workoutId)
-
+    
+  //  this.workoutService.getAllWorkouts().subscribe(data => {
+   //this.selWos = data;
+  //// this.ngRedux.dispatch({type:GET_ONE_WO,value:workoutId});
+     // this.selectedworkouts = this.selWos.filter(selectedwo => selectedwo.workout_id == workoutId)
+     this.selectedworkouts = this.ngRedux.getState().workoutArr.filter(workout => workout.workout_id === workoutId);
       console.log(this.selectedworkouts);
       this.workoutForm.setValue({
         workout_id: this.selectedworkouts[0].workout_id,
@@ -91,16 +96,18 @@ export class WorkoutComponent implements OnInit {
         category: this.selectedworkouts[0].category
       });
 
-    });
+  //  });
     //this.workoutService.getAllWorkouts().subscribe(data => this.selectedworkouts = data );
 
   }
 
   insertupdateWorkout(workout: workout) {
-    this.workoutService.saveWorkout(workout).subscribe(data => {
-      console.log("Workout inserted/updated");
-      this.router.navigate(['/viewall']);
-    })
+    this.ngRedux.dispatch({type:CRE_WO,value:workout});
+    this.router.navigate(['/viewall']);
+    // this.workoutService.saveWorkout(workout).subscribe(data => {
+    //   console.log("Workout inserted/updated");
+    //   this.router.navigate(['/viewall']);
+    // })
   }
 
 
@@ -125,11 +132,12 @@ export class WorkoutComponent implements OnInit {
   };
 
   deleteWorkout(workout_id: number) {
-    this.workoutService.deleteWorkout(workout_id).subscribe(data => {
+    this.ngRedux.dispatch({type:DEL_WO,action:workout_id});
+   /* this.workoutService.deleteWorkout(workout_id).subscribe(data => {
       console.log("Workout deleted");
       this.router.navigate(['/viewall']);
     });
-
+*/
   }
 
   minus(){
